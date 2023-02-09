@@ -1,0 +1,46 @@
+﻿@model Season
+@{
+    ViewData["Title"] = "افزودن سرفصل";
+    int? productId = ViewData["ProductId"] as int?;
+}
+
+<div class="headline buttons two primary">
+    <h4>افزودن سرفصل جدید </h4>
+
+</div>
+<div class="row">
+    <form method="post" enctype="multipart/form-data">
+        <input type="hidden" asp-for="ProductId" value="@productId" />
+        <div class="col-md-12">
+            <div class="panel panel-primary">
+
+
+                <div class="panel-heading">
+                    سرفصل
+                </div>
+
+
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label>عنوان سرفصل</label>
+                        <input asp-for="Title" class="form-control" />
+                        <span asp-validation-for="Title" class="text-danger"></span>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-md-10">
+            <input class="btn btn-block btn-success" type="submit" value="ثبت سرفصل" />
+
+        </div>
+
+    </form>
+    <div class="col-md-2">
+        <a class="btn btn-block btn-warning" href="/admin/Products/indexSeason/@productId">بازگشت به لیست سرفصل ها</a>
+    </div>
+</div>
+

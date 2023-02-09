@@ -1,0 +1,83 @@
+﻿@model Manba
+@{
+    ViewData["Title"] = "افزودن منبع";
+}
+
+<div class="headline buttons two primary">
+    <h4>افزودن منبع</h4>
+
+</div>
+<div class="row form-box-item">
+    <form method="post" enctype="multipart/form-data">
+        <div class="col-md-8">
+
+            <div class="form-horizontal">
+
+                <div class="form-group">
+                    <label>عنوان منبع</label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label>لینک منبع</label>
+                    <input asp-for="Link" class="form-control" />
+                    <span asp-validation-for="Link" class="text-danger"></span>
+                </div>
+            </div>
+
+
+
+
+
+        </div>
+
+
+        <div class="col-md-4">
+            <div class="panel panel-primary">
+                <div class="panel-heading">تصویر منبع</div>
+                <div class="panel-body">
+                    <img id="imgPreviewProduct" style="margin: 8px auto" class="thumbnail" src="/Product/Manba/no-photo.jpg" />
+                    <div class="form-group">
+                        <label>عکس</label>
+                        <div class="col-md-10">
+                            <input type="file" id="imgManba" name="imgManba" />
+                            <span asp-validation-for="ImageName" class="text-danger"></span>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-10">
+            <input class="btn btn-block btn-success" type="submit" value="ثبت منبع" />
+
+        </div>
+
+    </form>
+    <div class="col-md-2">
+        <a class="btn btn-block btn-warning" href="/Admin/Products/IndexManba">بازگشت به لیست منبع</a>
+    </div>
+</div>
+
+@section Scripts{ 
+<script>
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#imgPreviewProduct').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]); // convert to base64 string
+        }
+    }
+
+    $("#imgManba").change(function () {
+        readURL(this);
+    });
+    ;
+</script>
+}

@@ -1,0 +1,132 @@
+﻿@model Blog
+@{
+    ViewData["Title"] = "پست جدید";
+    List<Blog_Groups> groups = ViewData["Groups"] as List<Blog_Groups>;
+
+}
+<div class="headline buttons two primary">
+    <h4>افزودن پست</h4>
+
+</div>
+<div class="row form-box-item">
+    <form method="post" enctype="multipart/form-data">
+        <div class="col-md-8">
+
+            <div class="form-horizontal">
+
+                <div class="form-group">
+                    <label>عنوان پست</label>
+                    <input asp-for="Title" class="form-control" />
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label>توضیح کوتاه پست</label>
+                    <input asp-for="ShortDescription" class="form-control" />
+                    <span asp-validation-for="ShortDescription" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>گروه اصلی</label>
+                <select asp-for="GroupId" class="form-control" asp-items="@(ViewData["Groups"] as SelectList)"></select>
+                <span asp-validation-for="GroupId" class="text-danger"></span>
+
+            </div>
+            <div class="form-group">
+                <label>زیر گروه </label>
+                <select asp-for="SubGroup" class="form-control" asp-items="@(ViewData["SubGroup"] as SelectList)"></select>
+                <span asp-validation-for="SubGroup" class="text-danger"></span>
+
+            </div>
+            <div class="form-group">
+                <label>بدنه</label>
+                <textarea class="form-control" asp-for="Body" rows="10"></textarea>
+                <span asp-validation-for="Body" class="text-danger"> </span>
+            </div>
+
+
+
+            <div class="form-group">
+                <label>کلمات کلیدی دوره</label>
+                <input type="text" asp-for="Tags" class="form-control">
+                <p class="help-block">کلمات را با - جدا کنید</p>
+                <span asp-validation-for="Tags"></span>
+            </div>
+
+
+
+
+        </div>
+
+
+        <div class="col-md-4">
+            <div class="panel panel-primary">
+                <div class="panel-heading">تصویر پست</div>
+                <div class="panel-body">
+                    <img id="imgPreviewProduct" style="margin: 8px auto" class="thumbnail" src="/Blog/images.jpg" />
+                    <div class="form-group">
+                        <label>عکس</label>
+                        <div class="col-md-10">
+                            <input type="file" id="imageBlog" name="imageBlog" />
+                            <span asp-validation-for="ImageName" class="text-danger"></span>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-10">
+            <input class="btn btn-block btn-success" type="submit" value="ثبت پست" />
+
+        </div>
+
+    </form>
+    <div class="col-md-2">
+        <a class="btn btn-block btn-warning" href="/Admin/Blog">بازگشت به لیست بلاگ ها</a>
+    </div>
+</div>
+@section Scripts{
+    <script src="https://cdn.ckeditor.com/4.9.2/standard/ckeditor.js"></script>
+
+    <script>
+        CKEDITOR.replace('Body', {
+            customConfig: '/js/Config.js'
+        });
+        $("#GroupId").change(function () {
+            $("#SubGroup").empty();
+            $.getJSON("/Admin/Blog/GetSubGroups/" + $("#GroupId :selected").val(),
+                function (data) {
+
+                    $.each(data,
+                        function () {
+                            $("#SubGroup").append('<option value=' + this.value + '>' + this.text + '</option>');
+
+                        });
+
+                });
+
+
+        });
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#imgPreviewProduct').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]); // convert to base64 string
+            }
+        }
+
+        $("#imageBlog").change(function () {
+            readURL(this);
+        });
+        ;
+
+    </script>
+}
+
+
+

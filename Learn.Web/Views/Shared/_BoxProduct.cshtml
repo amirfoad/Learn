@@ -1,0 +1,79 @@
+﻿@model ShowProductListItemViewModel
+@*<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 term-col">
+        <article>
+            <a href="/ShowProduct/@Model.ProductId" class="img-layer"><img src="/Product/Thumb/@Model.ImageName" alt="@Model.Title"></a>
+            <h2><a href="/ShowProduct/@Model.ProductId">@Model.Title </a></h2>
+            <span> @((Model.Price==0?"رایگان":Model.Price.ToString("#,0 تومان"))) </span>
+            <i>@Model.TotalTime</i>
+        </article>
+    </div>*@
+<!-- PRODUCT ITEM -->
+<div class="product-item column">
+    <!-- PRODUCT PREVIEW ACTIONS -->
+    <div class="product-preview-actions">
+        <!-- PRODUCT PREVIEW IMAGE -->
+        <a href="/ShowProduct/@Model.ProductId"title="@Model.Title">
+        <figure class="product-preview-image">
+            <img class="rad15" src="/Product/Thumb/@Model.ImageName"title="@Model.Altname" alt="@Model.Title">
+        </figure>
+        </a>
+        <!-- /PRODUCT PREVIEW IMAGE -->
+        <!-- PREVIEW ACTIONS -->
+  @*      <div class="preview-actions">
+            <!-- PREVIEW ACTION -->
+            <div class="preview-action">
+                <a href="/ShowProduct/@Model.ProductId">
+                    <div class="circle tiny primary">
+                        <span class="icon-tag"></span>
+                    </div>
+                </a>
+                <a href="/ShowProduct/@Model.ProductId">
+                    <p>نمایش</p>
+                </a>
+            </div>
+            <!-- /PREVIEW ACTION -->
+            <!-- PREVIEW ACTION -->
+            <div class="preview-action">
+                <a href="#">
+                    <div class="circle tiny secondary">
+                        <span class="icon-heart"></span>
+                    </div>
+                </a>
+                <a href="#">
+                    <p>علاقه مندیها +</p>
+                </a>
+            </div>
+            <!-- /PREVIEW ACTION -->
+        </div>*@
+        <!-- /PREVIEW ACTIONS -->
+    </div>
+    <!-- /PRODUCT PREVIEW ACTIONS -->
+    <!-- PRODUCT INFO -->
+    <div class="product-info">
+        <a href="/ShowProduct/@Model.ProductId"title="@Model.Title">
+            <h3 class="text-header">@Model.Title</h3>
+        </a>
+        <p class="product-description">@Model.TotalTime </p>
+        <a href="shop-gridview-v1.html">
+            <p class="category primary">@Model.ParentGroup</p>
+        </a>
+        <p class="price"><span>@((Model.Price==0?"رایگان":Model.Price.ToString("#,0 تومان")))</span></p>
+    </div>
+    <!-- /PRODUCT INFO -->
+    <hr class="line-separator">
+
+    <!-- USER RATING -->
+    <div class="user-rating">
+        <a href="@Model.ManbaLink">
+            <figure class="user-avatar small">
+                <img src="/Product/Manba/Thumb/@Model.ManbaImageName" alt="user-avatar">
+            </figure>
+        </a>
+        <a href="@Model.ManbaLink" target="_blank">
+            <p class="text-header tiny">منبع :@Model.ManbaName</p>
+        </a>
+       
+    </div>
+    <!-- /USER RATING -->
+</div>
+<!-- /PRODUCT ITEM -->

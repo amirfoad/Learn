@@ -1,0 +1,33 @@
+﻿@model IEnumerable<Learn.DataLayer.Entities.Blog.Blog_Groups>
+
+    <a href="/Blogs">
+        بلاگ
+        <!-- SVG ARROW -->
+        <svg class="svg-arrow">
+            <use xlink:href="#svg-arrow"></use>
+        </svg>
+        <!-- /SVG ARROW -->
+    </a>
+    <div class="content-dropdown">
+        @foreach (var item in Model.Where(p => p.ParentID == null))
+        {
+            <div class="feature-list-block">
+
+
+                <h6 class="feature-list-title"><a style="color:black" href="/Blogs?selectedgroup=@item.GroupID">@item.GroupTitle</a></h6>
+                <hr class="line-separator">
+                <ul class="feature-list">
+                    @foreach (var sub in Model.Where(p => p.ParentID == item.GroupID))
+                    {
+                        <li class="feature-list-item">
+                            <a href="/Blogs?selectedgroup=@sub.GroupID"> @sub.GroupTitle</a>
+                        </li>
+                    }
+                </ul>
+
+            </div>
+        }
+    </div>
+
+
+

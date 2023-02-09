@@ -1,0 +1,70 @@
+﻿
+@model List<Learn.DataLayer.Entities.Orders.Discount>
+@using Learn.Core.Convertors
+
+@{
+    ViewData["Title"] = "تخفیف ها";
+}
+<div class="headline buttons two primary">
+    <h4>لیست تخیف ها</h4>
+
+</div>
+
+
+<div class="form-box-item">
+    <h4>لیست کدهای تخفیف</h4>
+    <hr class="line-separator">
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            لیست کد های تخفیف
+        </div>
+        <!-- /.panel-heading -->
+        <div class="panel-body">
+            <div class="col-md-12" style="margin: 10px 0;">
+                <div class="col-md-12" style="margin: 10px 0;">
+                    <a class="btn btn-outline btn-success" href="/Admin/discount/create">افزودن کد جدید</a>
+
+                </div>
+                <table class="table table-striped table-bordered table-hover dataTable no-footer" id="dataTables-example" aria-describedby="dataTables-example_info">
+                    <thead>
+                        <tr>
+                            <th>کد</th>
+                            <th>تعداد</th>
+                            <th>تاریخ شروع </th>
+                            <th>تاریخ پایان </th>
+                            <th>دستورات</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.DiscountCode</td>
+                                <td>@item.UsableCount</td>
+                                <td>@item.StartDate?.ToShamsi()</td>
+                                <td>@item.EndDate?.ToShamsi()</td>
+                                <td>
+                                    <a href="/Admin/Discount/Edit/@item.DiscountId" class="btn btn-warning btn-sm">
+                                        ویرایش
+                                    </a>
+
+                                    @*<a href="/Admin/Discounts/Delete/@item.DiscountId" class="btn btn-danger btn-sm">
+                                            حذف
+                                        </a>*@
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+
+

@@ -1,0 +1,153 @@
+﻿@model Product
+@{
+    ViewData["Title"] = "افزودن محصول جدید";
+}
+<div class="headline buttons two primary">
+    <h4>افزودن محصول</h4>
+
+</div>
+<div class="row  form-box-item">
+    <form method="post" enctype="multipart/form-data">
+        <div class="col-md-8">
+            <h4>اطلاعات دوره</h4>
+            <hr />
+            <div class="form-group">
+                <label>عنوان محصول</label>
+                <input asp-for="ProductTitle" class="form-control" />
+                <span asp-validation-for="ProductTitle" class="text-danger"></span>
+
+            </div>
+            <div class="form-group">
+                <label>گروه اصلی</label>
+                <select asp-for="GroupId" class="form-control" asp-items="@(ViewData["Groups"] as SelectList)"></select>
+                <span asp-validation-for="GroupId" class="text-danger"></span>
+
+            </div>
+            <div class="form-group">
+                <label>زیر گروه </label>
+                <select asp-for="SubGroup" class="form-control" asp-items="@(ViewData["SubGroup"] as SelectList)"></select>
+                <span asp-validation-for="SubGroup" class="text-danger"></span>
+
+            </div>
+            <div class="form-group">
+                <label>مدرس دوره</label>
+                <select class="form-control" asp-for="TeacherId" asp-items="@(ViewData["Teachers"] as SelectList)"></select>
+                <span asp-validation-for="TeacherId"></span>
+            </div>
+            <div class="form-group">
+                <label>منبع دوره</label>
+                <select class="form-control" asp-for="ManbaId" asp-items="@(ViewData["Manba"] as SelectList)"></select>
+                <span asp-validation-for="ManbaId"></span>
+            </div>
+            <div class="form-group">
+                <label>شرح دوره</label>
+                <textarea class="form-control" asp-for="ProductDescription" rows="10"></textarea>
+                <span asp-validation-for="ProductDescription" class="text-danger"> </span>
+            </div>
+            <div class="form-group">
+                <label>Alt</label>
+                <input asp-for="Altername" class="form-control" />
+                <span asp-validation-for="Altername" class="text-danger"></span>
+
+            </div>
+            <div class="form-group">
+                <label>توضیح سئو</label>
+                <input asp-for="ProductSeoDescript" class="form-control" />
+                <span asp-validation-for="ProductSeoDescript" class="text-danger"></span>
+
+            </div>
+            <div class="form-group">
+                <label>قیمت دوره</label>
+                <input type="number" asp-for="ProductPrice" value="0" class="form-control" />
+                <span asp-validation-for="ProductPrice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label>فایل دمو دوره</label>
+                <input type="file" name="demoUp">
+                <span asp-validation-for="DemoFileName"></span>
+            </div>
+            <div class="form-group">
+                <label>کلمات کلیدی دوره</label>
+                <input type="text" asp-for="Tags" class="form-control">
+                <p class="help-block">کلمات را با - جدا کنید</p>
+                <span asp-validation-for="Tags"></span>
+            </div>
+
+        </div>
+
+
+        <div class="col-md-4">
+            <p></p>
+            <img id="imgCourse" class="thumbnail" src="/UserAvatar/Defult.jpg" />
+            <div class="form-group">
+
+                <label>انتخاب تصویر</label>
+                <input type="file" name="imgCourseUp" id="imgCourseUp">
+            </div>
+            <div class="form-group">
+                <label>سطح دوره</label>
+                <select class="form-control" asp-for="LevelId" asp-items="@(ViewData["Levels"] as SelectList)"></select>
+                <span asp-validation-for="LevelId"></span>
+            </div>
+            <div class="form-group">
+                <label>وضعیت دوره</label>
+                <select class="form-control" asp-for="StatusId" asp-items="@(ViewData["Statues"] as SelectList)"></select>
+                <span asp-validation-for="StatusId"></span>
+            </div>
+        </div>
+        <div class="col-md-10">
+            <input class="btn btn-block btn-success" type="submit" value="ثبت محصول" />
+
+        </div>
+    </form>
+    <div class="col-md-2">
+        <a class="btn btn-block btn-warning" href="/Admin/Products">بازگشت به لیست محصولات</a>
+    </div>
+</div>
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+
+        $("#GroupId").change(function () {
+            $("#SubGroup").empty();
+            $.getJSON("/Admin/Products/GetSubGroups/" + $("#GroupId :selected").val(),
+                function (data) {
+
+                    $.each(data,
+                        function () {
+                            $("#SubGroup").append('<option value=' + this.value + '>' + this.text + '</option>');
+
+                        });
+
+                });
+
+
+        });
+
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#imgCourse').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]); // convert to base64 string
+            }
+        }
+
+        $("#imgCourseUp").change(function () {
+            readURL(this);
+        });
+    </script>
+    <script src="https://cdn.ckeditor.com/4.9.2/standard/ckeditor.js"></script>
+    <script>
+
+        CKEDITOR.replace('ProductDescription', {
+            customConfig: '/js/Config.js'
+        });
+
+    </script>
+
+}

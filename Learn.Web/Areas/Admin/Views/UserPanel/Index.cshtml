@@ -1,0 +1,51 @@
+﻿
+@model InformationUserViewModel
+@{
+    ViewData["Title"] = "پنل کاربری " + User.Identity.Name;
+}
+
+<div class="headline buttons two primary">
+<h4>پروفایل</h4>
+
+</div>
+
+
+<div class="form-box-item">
+    <h4>اطلاعات پروفایل</h4>
+    <hr class="line-separator">
+
+
+    <form id="profile-info-form">
+        <!-- INPUT CONTAINER -->
+        <div class="input-container half">
+            <label name="UserName" class="rl-label">:نام حساب کاربری</label>
+            <label for="UserName">@Model.UserName</label>
+
+        </div>
+        <!-- /INPUT CONTAINER -->
+        <!-- INPUT CONTAINER -->
+        <div class="input-container half">
+            <label for="new_pwd" class="rl-label">:ایمیل</label>
+            <label name="new_pwd">@Model.Email</label>
+
+        </div>
+        <div class="input-container "></div>
+        <!-- /INPUT CONTAINER -->
+        <!-- INPUT CONTAINER -->
+        <div class="input-container half">
+            <label for="new_pwd2" class="rl-label">:تاریخ عضویت</label>
+            <label name="new_pwd2">@Model.RegisterDate.ToShamsi()</label>
+
+        </div>
+        <div class="input-container half">
+            <label for="new_pwd3" class="rl-label">:موجودی حساب</label>
+            <label name="new_pwd3">@Model.Wallet.ToString("#,0 تومان")</label>
+
+        </div>
+        <div class="input-container "></div>
+
+
+    </form>
+</div>
+
+

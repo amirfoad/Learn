@@ -1,0 +1,65 @@
+﻿@model Learn.Core.DTOs.EditProfileViewModel
+@{
+    ViewData["Title"] = "ویرایش حساب کاربری";
+}
+
+<div class="headline buttons two primary">
+    <h4>ویرایش حساب کاربری</h4>
+
+</div>
+
+
+
+<div class="form-box-item">
+    <h4>اطلاعات پروفایل</h4>
+    <hr class="line-separator">
+    <!-- PROFILE IMAGE UPLOAD -->
+    <!-- PROFILE IMAGE UPLOAD -->
+
+    <form asp-action="EditProfile" id="profile-info-form" method="post" enctype="multipart/form-data">
+        @if (ViewBag.IsSuccess != null)
+        {
+            <div class="alert alert-success">
+                اطلاعات کاربری شما با موفقیت ویرایش شد
+            </div>
+        }
+        <div class="profile-image">
+            <div class="profile-image-data">
+                <input type="hidden" asp-for="AvatarName" />
+                <figure class="user-avatar medium">
+                    <img src="~/UserAvatar/@Model.AvatarName" alt="profile-default-image">
+                </figure>
+                <p class="text-header">تصویر پروفایل</p>
+                <p class="upload-details">70x70px</p>
+            </div>
+            <input type="file" style="display:none" name="UserAvatar" asp-for="UserAvatar" />
+            <label for="UserAvatar"  class="button mid-short dark-light">آپلود تصویر</label>
+        </div>
+        <!-- INPUT CONTAINER -->
+        <div class="input-container">
+            <label class="rl-label ">نام حساب کاربری</label>
+            <input asp-for="UserName" placeholder="نام خود را وارد کنید">
+            <span asp-validation-for="UserName" class="text-danger"></span>
+
+        </div>
+        <div class="input-container">
+            <label class="rl-label">ایمیل</label>
+            <input asp-for="Email" placeholder="ایمیل  خود را وارد کنید">
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+        <!-- /INPUT CONTAINER -->
+        <!-- INPUT CONTAINER -->
+        <button type="submit" class="button mid-short primary">ذخیره تغییرات</button>
+
+        <div class="input-container"></div>
+        <div class="input-container"></div>
+
+    </form>
+</div>
+
+
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+
+}

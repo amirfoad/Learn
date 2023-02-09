@@ -1,0 +1,156 @@
+﻿@inject IPermissionService _permission
+<div id="dashboard-options-menu" class="side-menu dashboard left closed">
+    <!-- SVG PLUS -->
+    <svg class="svg-plus">
+        <use xlink:href="#svg-plus"></use>
+    </svg>
+    <partial name="_SideBar" />
+    <!-- /SIDE MENU HEADER -->
+    <!-- SIDE MENU TITLE -->
+    <p class="side-menu-title">حساب کاربری</p>
+    <!-- /SIDE MENU TITLE -->
+    <!-- DROPDOWN -->
+    <ul class="dropdown dark hover-effect interactive">
+        <!-- DROPDOWN ITEM -->
+        <li class="dropdown-item">
+            <a href="/UserPanel">
+                <span class="sl-icon icon-settings"></span>
+                اطلاعات اکانت
+            </a>
+        </li>
+        <!-- /DROPDOWN ITEM -->
+        <li class="dropdown-item ">
+            <a href="/UserPanel/EditProfile">
+                <span class="sl-icon icon-settings"></span>
+                ویرایش حساب کابری
+            </a>
+        </li>
+        <li class="dropdown-item ">
+            <a href="/UserPanel/ChangePassword">
+                <span class="sl-icon icon-settings"></span>
+                تغییر رمز عبور
+            </a>
+        </li>
+        <li class="dropdown-item ">
+            <a href="/UserPanel/Wallet">
+                <span class="sl-icon icon-settings"></span>
+                کیف پول شما
+            </a>
+        </li>
+        <li class="dropdown-item ">
+            <a href="/UserPanel/MyOrders">
+                <span class="sl-icon icon-settings"></span>
+                فاکتورها
+            </a>
+        </li>
+        <!-- /DROPDOWN ITEM -->
+        <!-- DROPDOWN ITEM -->
+        <!-- /DROPDOWN ITEM -->
+    </ul>
+
+    @if (_permission.CheckPermission(1, User.Identity.Name))
+    {
+        <!-- /DROPDOWN -->
+        <!-- SIDE MENU TITLE -->
+        <p class="side-menu-title">محصولات</p>
+        <!-- /SIDE MENU TITLE -->
+        <!-- DROPDOWN -->
+<ul class="dropdown dark hover-effect">
+
+    <!-- DROPDOWN ITEM -->
+    <li class="dropdown-item">
+        <a href="/Admin/Products">
+            <span class="sl-icon icon-folder-alt"></span>
+            مدیریت محصولات
+        </a>
+    </li>
+    <!-- DROPDOWN ITEM -->
+    <li class="dropdown-item">
+        <a href="/Admin/Products/Create">
+            <span class="sl-icon icon-arrow-up-circle"></span>
+            آپلود محصول
+        </a>
+    </li>
+    <li class="dropdown-item">
+        <a href="/Admin/ProductGroup">
+            <span class="sl-icon icon-arrow-up-circle"></span>
+            گروه محصولات
+        </a>
+    </li>
+    <!-- /DROPDOWN ITEM -->
+    <!-- /DROPDOWN ITEM -->
+    <!-- DROPDOWN ITEM -->
+    <li class="dropdown-item">
+        <a href="/Admin/Discount">
+            <span class="sl-icon icon-wallet"></span>
+            تخفیف ها
+        </a>
+    </li>
+    <li class="dropdown-item">
+        <a href="/Admin/Products/indexManba">
+            <span class="sl-icon icon-wallet"></span>
+            منابع
+        </a>
+    </li>
+    <!-- /DROPDOWN -->
+    <!-- SIDE MENU TITLE -->
+    <p class="side-menu-title">بلاگ</p>
+    <li class="dropdown-item">
+        <a href="/Admin/Blog">
+            <span class="sl-icon icon-folder-alt"></span>
+            مدیریت پست ها
+        </a>
+    </li>
+    <li class="dropdown-item">
+        <a href="/Admin/Blog/Create">
+            <span class="sl-icon icon-folder-alt"></span>
+            افزودن پست جدید
+        </a>
+    </li>
+    <li class="dropdown-item">
+        <a href="/Admin/BlogGroup">
+            <span class="sl-icon icon-folder-alt"></span>
+            مدیریت گروه ها
+        </a>
+    </li>
+    <!-- /DROPDOWN ITEM -->
+    @if (_permission.CheckPermission(2, User.Identity.Name))
+    {
+        <!-- /DROPDOWN -->
+        <!-- SIDE MENU TITLE -->
+        <p class="side-menu-title">سامانه CRM</p>
+        <li class="dropdown-item">
+            <a href="/Admin/User">
+                <span class="sl-icon icon-folder-alt"></span>
+                مدیریت کاربران
+            </a>
+        </li>
+        <li class="dropdown-item">
+            <a href="/Admin/User/Index?roleid=2">
+                <span class="sl-icon icon-folder-alt"></span>
+                مدیریت استادان
+            </a>
+        </li>
+        <li class="dropdown-item">
+            <a href="/Admin/user/DeletedUsers">
+                <span class="sl-icon icon-folder-alt"></span>
+                کاربران حذف شده
+            </a>
+        </li>
+        <li class="dropdown-item">
+            <a href="/Admin/user/RolesIndex">
+                <span class="sl-icon icon-folder-alt"></span>
+                مدیریت نقش ها
+            </a>
+        </li>
+
+    }
+
+</ul>
+    }
+
+
+    <!-- /DROPDOWN -->
+
+    <a href="/Logout" class="button medium secondary">خروج </a>
+</div>

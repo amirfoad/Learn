@@ -1,0 +1,66 @@
+﻿@model IEnumerable<Learn.DataLayer.Entities.Orders.Order>
+@{
+    ViewData["Title"] = "فاکتور ها";
+}
+
+
+<div class="headline buttons two primary">
+    <h4>نمایش فاکتورها</h4>
+
+</div>
+
+<div class="form-box-item">
+    <h4>فاکتور های شما</h4>
+    <hr class="line-separator">
+
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>شماره فاکتور</th>
+                <th>تاریخ</th>
+                <th>جمع</th>
+                <th>پرداخت</th>
+                <th>دستورات</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @item.OrderId
+                    </td>
+                    <td>
+                        @item.CreateDate.ToShamsi()
+                    </td>
+                    <td>@item.OrderSum.ToString("#,0 تومان")</td>
+                    <td>
+                        @if (item.IsFinally == true)
+                        {
+                            <p class="text text-success">
+                                <i class="glyphicon glyphicon-ok"></i>
+                            </p>
+                        }
+                        else
+                        {
+                            <p class="text text-danger">
+                                <i class="glyphicon glyphicon-remove"></i>
+                            </p>
+                        }
+                    </td>
+                    <td>
+                        <a class="btn btn-info" href="/userpanel/MyOrders/showOrder/@item.OrderId"> نمایش</a>
+                    </td>
+                </tr>
+            }
+
+
+
+        </tbody>
+    </table>
+
+
+</div>
+
+

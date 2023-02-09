@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>  کاوش لرن | @ViewData["Title"] </title>
+    @RenderSection("MetaTag",false)
+    <partial name="_MetaTags" />
+    <partial name="_Styles" />
+    @*<script src="/js/jquery.min.js"></script>*@
+</head>
+<body>
+    @*<script src="/js/modernizr-custom.js"></script>*@
+    <script type="text/javascript">ANCHORFREE_VERSION = "623161526"</script>
+    <script type='text/javascript'>
+        (function () {
+            if (typeof (_AF2تومانrunned) != 'undefined' && _AF2تومانrunned == true) { return } _AF2تومانrunned = true; _AF2تومان = {
+                'SN': 'HSSHIELD00IT', 'IP': '64.40.152.187', 'CH': 'HSSCNL000548', 'CT': 'z283', 'HST': '', 'AFH': 'hss414', 'RN': Math.floor(Math.random() * 999),
+                'TOP': (parent.location != document.location || top.location != document.location) ? 0 : 1, 'AFVER': '6.0.4', 'fbw': false, 'FBWCNT': 0, 'FBWCNTNAME': 'FBWCNT_IEG', 'NOFBWNAME': 'NO_FBW_IEG', 'B': 'ieg', 'VER': 'nonus'
+            }; if (_AF2تومان.TOP == 1) { document.write("<scr" + "ipt src='http://box.anchorfree.net/insert/insert.php?sn=" + _AF2تومان.SN + "&ch=" + _AF2تومان.CH + "&v=" + ANCHORFREE_VERSION + 6 + "&b=" + _AF2تومان.B + "&ver=" + _AF2تومان.VER + "&afver=" + _AF2تومان.AFVER + "' type='text/javascript'></scr" + "ipt>"); }
+        })();</script>
+
+        <script>
+
+
+</script>
+
+    <!-- main manu -->
+    @await Component.InvokeAsync("ProductGroupComponent")
+    <!-- /main manu -->
+    @RenderSection("SearchBox", false)
+
+    <!-- content -->
+    @RenderBody()
+    <!-- /content -->
+    <!-- footer -->
+    @await Component.InvokeAsync("FooterComponent")
+
+    <!-- /footer -->
+    <partial name="_Scripts" />
+
+    @RenderSection("Scripts", false)
+</body>
+</html>

@@ -1,0 +1,118 @@
+﻿@model Learn.DataLayer.Entities.Blog.Blog
+@{
+    ViewData["Title"] = Model.Title;
+    List<Learn.DataLayer.Entities.Blog.Blog_Groups> groups = ViewData["Groups"] as List<Learn.DataLayer.Entities.Blog.Blog_Groups>;
+    List<Learn.Core.DTOs.Blog.ShowLatestBlogViewModel> latestPost = ViewData["LatestPosts"] as List<Learn.Core.DTOs.Blog.ShowLatestBlogViewModel>;
+}
+
+<div class="section-headline-wrap">
+    <div class="section-headline">
+        <h2>@Model.Title</h2>
+        <p>صفحه اصلی<span class="separator">/</span>وبلاگ<span class="separator">/</span><span class="current-section">@Model.Title</span></p>
+    </div>
+</div>
+
+<div class="section-wrap">
+    <div class="section">
+        <!-- CONTENT -->
+        <div class="content left">
+            <!-- POST -->
+            <article class="post blog-post">
+                <!-- POST IMAGE -->
+                <div class="post-image">
+                    <figure class="product-preview-image large liquid">
+                        <img src="/Blog/@Model.ImageName" alt="@Model.Title">
+                    </figure>
+                </div>
+                <!-- /POST IMAGE -->
+                <!-- POST CONTENT -->
+                <div class="post-content with-title">
+                    <p class="text-header big">@Model.Title</p>
+
+                    @Html.Raw(Model.Body)
+                </div>
+                <!-- /POST CONTENT -->
+
+                <hr class="line-separator">
+
+
+                <!-- SHARE -->
+                <div class="share-links-wrap">
+                    <p class="text-header small">به اشتراک بگذارید</p>
+                    <!-- SHARE LINKS -->
+
+
+                    <ul class="share-links hoverable">
+                        <li><a href="https://www.facebook.com/sharer/sharer.php?u=https://Learn.com/ShowBlog/@Model.BlogID" target="_blank" class="fb"></a></li>
+                        <li><a href="https://twitter.com/intent/tweet?url=https://Learn.com/ShowBlog/@Model.BlogID" target="_blank" class="twt"></a></li>
+
+                        <li><a href="https://plus.google.com/share?url=https://Learn.com/ShowBlog/@Model.BlogID" target="_blank" class="gplus"></a></li>
+                    </ul>
+                    <!-- /SHARE LINKS -->
+                </div>
+                <!-- /SHARE -->
+            </article>
+            <!-- /POST -->
+        </div>
+        <!-- CONTENT -->
+        <!-- SIDEBAR -->
+        <div class="sidebar right">
+            <!-- DROPDOWN -->
+            <ul class="dropdown hover-effect">
+                @foreach (var group in groups)
+                {
+                    <li class="dropdown-item">
+                        <a href="/blogs?selectedGroups=@group.GroupID">@group.GroupTitle</a>
+                    </li>
+                }
+
+
+            </ul>
+            <!-- /DROPDOWN -->
+            <!-- SIDEBAR ITEM -->
+            <div class="sidebar-item author-items-v2">
+                <h4>آخرین نوشته ها</h4>
+                <hr class="line-separator">
+                @foreach (var item in latestPost)
+                {
+                    <!-- ITEM PREVIEW -->
+                    <div class="item-preview">
+                        <a href="/showblog/@item.BlogId">
+                            <figure class="product-preview-image small liquid">
+                                <img src="~/Blog/Thumb/@item.ImageName" alt="@item.Title">
+                            </figure>
+                        </a>
+                        <a href="/showblog/@item.BlogId"><p class="text-header small">@item.Title</p></a>
+      
+                    </div>
+                    <!-- /ITEM PREVIEW -->
+
+                }
+
+
+            </div>
+            <!-- /SIDEBAR ITEM -->
+  
+
+            <!-- SIDEBAR ITEM -->
+            <div class="sidebar-item">
+                <h4>برچسبها</h4>
+                <hr class="line-separator">
+                <!-- TAG LIST -->
+              
+                <div class="tag-list primary">
+                    @foreach (string tag in Model.Tags.Split('-', StringSplitOptions.RemoveEmptyEntries))
+                    {
+           
+                        <a href="/Products?filter=@tag" class="tag-list-item">@tag</a>
+
+                    }
+
+                </div>
+                <!-- /TAG LIST -->
+            </div>
+            <!-- /SIDEBAR ITEM -->
+        </div>
+        <!-- /SIDEBAR -->
+    </div>
+</div>

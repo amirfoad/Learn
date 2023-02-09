@@ -1,0 +1,14 @@
+﻿@model Tuple<int, int>
+@if (User.Identity.IsAuthenticated && ViewBag.NotAccess == null)
+{
+
+  
+    <a id="trueVote" onclick="vote(true)" class="button mid secondary  half">
+        <span class="icon-like"></span>
+        میپسندم (@Model.Item1)
+    </a>
+    <a id="falseVote" onclick="vote(false)" class="button mid tertiary  half">
+        <span class="icon-dislike"></span>
+        نمیپسندم (@Model.Item2)
+    </a>
+}

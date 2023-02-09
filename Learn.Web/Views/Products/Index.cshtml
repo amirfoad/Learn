@@ -1,0 +1,194 @@
+﻿@model Tuple<List<ShowProductListItemViewModel>, int>
+@{
+    ViewData["Title"] = "آرشیو محصولات";
+}
+<div class="section-headline-wrap v2">
+    <div class="section-headline">
+        <h2>محصولات</h2>
+        <p>صفحه اصلی<span class="separator">/</span><span class="current-section">محصولات</span></p>
+    </div>
+</div>
+<div class="section-wrap">
+    <form id="formFilter" action="/Products" method="get">
+        <div class="section">
+            <!-- CONTENT -->
+            <div class="content">
+
+                <!-- HEADLINE -->
+                <div class="headline tertiary">
+                    <h4>@Model.Item1.Count محصول پیدا شد</h4>
+                    <!-- VIEW SELECTORS -->
+                    <div class="view-selectors">
+                        <input type="hidden" id="pageid" name="pageId" value="@ViewBag.pageId.ToString()" />
+                        <label for="getType" class="select-block">
+                            <select onchange="changeFilter()" name="getType" id="getType">
+                                <option onchange="changeFilter()" name="getType" value="">انتخاب کنید</option>
+                                <option onchange="changeFilter()" name="getType" value="All">همه</option>
+                                <option onchange="changeFilter()" name="getType" value="buy">خریدنی</option>
+                                <option onchange="changeFilter()" name="getType" value="free">رایگان</option>
+                            </select>
+                            <!-- SVG ARROW -->
+                            <svg class="svg-arrow">
+                                <use xlink:href="#svg-arrow"></use>
+                            </svg>
+                            <!-- /SVG ARROW -->
+                        </label>
+                    </div>
+           
+               
+
+
+                    <div class="clearfix"></div>
+                </div>
+                <!-- /HEADLINE -->
+                <!-- PRODUCT SHOWCASE -->
+                <div class="product-showcase">
+                    <!-- PRODUCT LIST -->
+                    <div class="product-list grid column3-4-wrap">
+                        <!-- PRODUCT ITEM -->
+                        @foreach (var item in Model.Item1)
+                        {
+                            <partial name="_BoxProduct" model="item" />
+
+                        }
+                        <!-- /PRODUCT ITEM -->
+
+
+                    </div>
+                    <!-- /PRODUCT LIST -->
+                </div>
+                <!-- /PRODUCT SHOWCASE -->
+
+                <div class="clearfix"></div>
+
+                <!-- PAGER -->
+                @if (Model.Item2 > 1)
+                {
+                    <div class="pager tertiary">
+
+
+                        @for (int i = 1; i <= (int)Model.Item2; i++)
+                        {
+
+                            <div class="pager-item @((ViewBag.pageId==i?"active":""))"><a onchange="changePage(@i)" href="#">@i</a></div>
+
+                        }
+
+                    </div>
+                }
+
+                <!-- /PAGER -->
+            </div>
+            <!-- CONTENT -->
+            <!-- SIDEBAR -->
+            <!-- SIDEBAR ITEM -->
+            <div class="sidebar">
+                <div class="sidebar-item">
+                    @{
+                        List<ProductGroup> groups = ViewBag.Groups as List<ProductGroup>;
+                        List<int> selected = ViewBag.selectedGroups as List<int>;
+                    }
+
+                    <h4>فیلتر محصولات</h4>
+                    <hr class="line-separator">
+                    @foreach (var group in groups.Where(g => g.ParentId == null))
+                    {
+                        <!-- CHECKBOX -->
+                        <input onchange="changeFilter()" type="checkbox" name="selectedGroups" value="@group.GroupId" id="cat-@group.GroupId" @((selected.Any(s => s == group.GroupId) ? "checked" : ""))>
+                        <label for="cat-@group.GroupId">
+                            <span class="checkbox tertiary"><span></span></span>
+                            @group.GroupTitle
+                            <span class="quantity">@*@group.Products.Count*@</span>
+                        </label>
+                        <!-- /CHECKBOX -->
+                    }
+
+
+
+                </div>
+
+
+                <!-- /SIDEBAR ITEM -->
+            </div>
+            <!-- /SIDEBAR -->
+        </div>
+    </form>
+</div>
+
+
+
+@section Scripts{
+    <script src="/noUiSlider/nouislider.min.js"></script>
+    <script src="/js/script.js"></script>
+    <script type="text/javascript">
+
+        function changePage(pageid) {
+            $("#pageid").val(pageid);
+            $("#formFilter").submit();
+        }
+
+        $(function () {
+
+            var slider = document.getElementById('priceFilter');
+            noUiSlider.create(slider, {
+                start: [20000, 100000],
+                step: 5000,
+                connect: true,
+                direction: 'rtl',
+                range: {
+                    'min': 20000,
+                    'max': 100000
+                }
+            });
+
+            var marginMin = document.getElementById('min-text'),
+                marginMax = document.getElementById('max-text');
+
+            slider.noUiSlider.on('update', function (values, handle) {
+                var xvalue = Math.round(values[handle]);
+                if (handle) {
+                    marginMax.innerHTML = xvalue;
+                } else {
+                    marginMin.innerHTML = xvalue;
+                }
+                //console.log(values[handle]);
+            });
+
+            slider.noUiSlider.on('change', function (values, handle) {
+                var xvalue = Math.round(values[handle]);
+                if (handle) {
+                    // setGetParameter('max_price', xvalue);
+                    $('#max-value').val(xvalue);
+                } else {
+                    // setGetParameter('min_price', xvalue);
+                    $('#min-value').val(xvalue);
+                }
+            });
+
+
+            slider.noUiSlider.on('slide', function (values, handle) {
+
+                console.log(values[0]);
+                console.log(values[1]);
+
+                var xvalue = Math.round(values[handle]);
+                //updateSliderRange( Math.round(values[0]), Math.round(values[1]) );
+            });
+
+
+
+            function updateSliderRange(min, max) {
+                slider.noUiSlider.updateOptions({
+                    range: {
+                        'min': min,
+                        'max': max
+                    }
+                });
+            }
+        });
+
+        function changeFilter() {
+            $("#formFilter").submit();
+        }
+    </script>
+}

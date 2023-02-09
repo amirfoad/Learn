@@ -1,0 +1,89 @@
+﻿@model IEnumerable<PageIndexAdminViewModel>
+@{
+    ViewData["Title"] = "صفحه ها";
+}
+
+
+<div class="headline buttons two primary">
+    <h4>لیست صفحه ها </h4>
+
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                لیست پیج های سایت
+            </div>
+            <!-- /.panel-heading -->
+            <div class="form-box-item">
+
+                <div class="panel-body">
+                    <div class="col-md-12" style="margin: 10px 0;">
+                        <div class="col-md-12" style="margin: 10px 0;">
+                            <a class="btn btn-outline btn-success" href="/Admin/Pages/create">افزودن صفحه جدید</a>
+
+                        </div>
+                        <table class="table table-striped table-bordered table-hover dataTable no-footer" id="dataTables-example" aria-describedby="dataTables-example_info">
+                            <thead>
+                                <tr>
+                                  
+                                    <th>عنوان صفحه</th>
+
+                                    <th>کد شناسایی</th>
+                                    <th>دستورات</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr id="PageRow@(item.PageID)">
+                                        <td>@item.PageTitle</td>
+                                        <td>@item.IdentifierId</td>
+
+                                        <td>
+                                            <a href="/Admin/Pages/Edit/@item.PageID" class="btn btn-warning btn-sm">
+                                                ویرایش
+                                            </a>
+
+                                            <a onclick="DeletePage(@item.PageID)" class="btn btn-danger btn-sm">
+                                                حذف
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+
+                    </div>
+                    <!-- /.panel-body -->
+                </div>
+                <!-- /.panel -->
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+
+
+        function DeletePage(id) {
+            var r = confirm("آیا از حذف صفحه مطمئنید؟");
+           
+            if (r == true) {
+                $.ajax({
+                    type: "Get",
+                    url: "/Admin/Pages/Delete/" + id
+                }).done(function () {
+                    $("#PageRow" + id).fadeOut(1000);
+                });
+            }
+        
+
+
+
+        };
+    </script>
+}

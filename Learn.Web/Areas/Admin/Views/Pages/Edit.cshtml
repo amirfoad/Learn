@@ -1,0 +1,76 @@
+﻿@model Page
+@{
+    ViewData["Title"] = "ویرایش صفحه";
+
+
+}
+<div class="headline buttons two primary">
+    <h4>ویرایش صفحه</h4>
+
+</div>
+<div class="row form-box-item">
+    <form method="post">
+        <input type="hidden" asp-for="PageID" />
+        <div class="col-md-12">
+
+            <div class="form-horizontal">
+
+                <div class="form-group">
+                    <label>عنوان صفحه</label>
+                    <input asp-for="Title" class="form-control" />
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label>توضیح کوتاه صفحه</label>
+                    <input asp-for="ShortDescription" class="form-control" />
+                    <span asp-validation-for="ShortDescription" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>کد شناسایی</label>
+                <input asp-for="PageIdentity" class="form-control" />
+                <span asp-validation-for="PageIdentity" class="text-danger"></span>
+
+            </div>
+
+            <div class="form-group">
+                <label>بدنه</label>
+                <textarea class="form-control" asp-for="Body" rows="10"></textarea>
+                <span asp-validation-for="Body" class="text-danger"> </span>
+            </div>
+
+
+
+
+
+
+
+
+        </div>
+
+
+        <div class="col-md-10">
+            <input class="btn btn-block btn-success" type="submit" value="ویرایش صفحه" />
+
+        </div>
+
+    </form>
+    <div class="col-md-2">
+        <a class="btn btn-block btn-warning" href="/Admin/Pages">بازگشت به لیست صفحه ها</a>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="https://cdn.ckeditor.com/4.9.2/standard/ckeditor.js"></script>
+
+    <script>
+        CKEDITOR.replace('Body', {
+            customConfig: '/js/Config.js'
+        })
+    </script>
+}
+
+
+
+

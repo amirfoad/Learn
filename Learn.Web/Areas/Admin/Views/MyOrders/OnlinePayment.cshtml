@@ -1,0 +1,29 @@
+﻿
+@{
+    ViewData["Title"] = "نتیجه پرداخت";
+
+}
+
+
+<div class="headline buttons two primary">
+    <h4>نتیجه پرداخت</h4>
+
+</div>
+<div class="form-box-item">
+    <h4>پرداخت </h4>
+    <hr class="line-separator">
+    @if (ViewBag.IsSuccess == true)
+    {
+        <div class="alert alert-success">
+            <h4>پرداخت با موفقیت انجام شد.</h4>
+            <p>کد پیگیری :@ViewBag.Code</p>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-danger">
+            <h2>پرداخت با شکست مواجه شد.</h2>
+            <p>کد پیگیری :@ViewBag.Code</p>
+        </div>
+    }
+</div>

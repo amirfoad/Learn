@@ -1,0 +1,25 @@
+﻿@inject IUserService _userService
+@{
+    SideBarUserPanelViewModel Model = _userService.GetSideBarUserPanelData(User.Identity.Name);
+    int Balance = _userService.BalanceUserWallet(User.Identity.Name);
+}
+<div class="side-menu-header">
+    <!-- USER QUICKVIEW -->
+    <div class="user-quickview">
+        <!-- USER AVATAR -->
+        <a href="author-profile.html">
+            <div class="outer-ring">
+                <div class="inner-ring"></div>
+                <figure class="user-avatar">
+                    <img src="/UserAvatar/@Model.ImageName" alt="@Model.UserName">
+                </figure>
+            </div>
+        </a>
+        <!-- /USER AVATAR -->
+        <!-- USER INFORMATION -->
+        <p class="user-name">@Model.UserName</p>
+        <p class="user-money">@Balance.ToString("#,0 تومان")</p>
+        <!-- /USER INFORMATION -->
+    </div>
+    <!-- /USER QUICKVIEW -->
+</div>

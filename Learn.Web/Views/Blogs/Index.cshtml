@@ -1,0 +1,83 @@
+﻿@model Tuple<List<Learn.Core.DTOs.Blog.ShowBlogListItemViewModel>, int>
+@using Learn.Core.Convertors
+@{
+    ViewData["Title"] = "بلاگ";
+}
+
+<div class="section-headline-wrap ">
+    <div class="section-headline">
+        <h2>بلاگ</h2>
+        <p>صفحه اصلی<span class="separator">/</span><span class="current-section">بلاگ</span></p>
+    </div>
+</div>
+
+<div class="section-wrap">
+    <div class="section">
+        @foreach (var item in Model.Item1)
+        {
+            <div class="blog-post-preview v1 column3-wrap">
+                <!-- BLOG POST PREVIEW ITEM -->
+                <div class="blog-post-preview-item column">
+                    <a href="/ShowBlog/@item.BlogId">
+                        <figure class="product-preview-image big liquid">
+                            <img src="~/Blog/Thumb/@item.ImageName" alt="@item.Title">
+                        </figure>
+                    </a>
+                    <!-- BLOG POST PREVIEW ITEM INFO -->
+                    <div class="blog-post-preview-item-info">
+                        <p class="text-header mid">
+                            <a href="/ShowBlog/@item.BlogId">@item.Title</a>
+                        </p>
+                        <div class="meta-line">
+                            <a href="/ShowBlog/@item.BlogId">
+                                <p class="category primary">ادمین</p>
+                            </a>
+                            <p>@item.CreateDate.ToShamsi()</p>
+                        </div>
+                        <p class="description-preview">@item.ShortDescription</p>
+                        <!-- METADATA -->
+                        <!--<div class="metadata">-->
+                            <!-- META ITEM -->
+                            <!--<div class="meta-item">
+                                <span class="icon-bubble"></span>
+                                <p>05</p>
+                            </div>-->
+                            <!-- /META ITEM -->
+                            <!-- META ITEM -->
+                            <!--<div class="meta-item">
+                                <span class="icon-eye"></span>
+                                <p>68</p>
+                            </div>-->
+                            <!-- /META ITEM -->
+                        <!--</div>-->
+                        <!-- /METADATA -->
+                        <a href="/ShowBlog/@item.BlogId" class="more-button primary">بیشتر بدانید</a>
+                    </div>
+                    <!-- /BLOG POST PREVIEW ITEM INFO -->
+                </div>
+                <!-- /BLOG POST PREVIEW ITEM -->
+
+            </div>
+
+        }
+        <!-- BLOG POST PREVIEW -->
+        <!-- /BLOG POST PREVIEW -->
+        <!-- PAGER -->
+        <!-- PAGER -->
+        @if (Model.Item2 > 1)
+        {
+            <div class="pager primary">
+
+
+                @for (int i = 1; i <= (int)Model.Item2; i++)
+                {
+
+                    <div class="pager-item @((ViewBag.pageId==i?"active":""))"><a onchange="changePage(@i)" href="#">@i</a></div>
+
+                }
+
+            </div>
+        }
+        <!-- /PAGER -->
+    </div>
+</div>

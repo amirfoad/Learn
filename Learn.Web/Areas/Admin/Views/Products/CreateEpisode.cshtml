@@ -1,0 +1,78 @@
+﻿@model ProductEpisode
+@{
+    ViewData["Title"] = "بخش جدید";
+    int? seasonId = ViewData["seasonId"] as int?;
+
+}
+<div class="row  form-box-item">
+    <form method="post" enctype="multipart/form-data">
+        <input type="hidden" asp-for="SeasonId" value="@seasonId"  />
+        <div class="col-md-12">
+            <h4>اطلاعات بخش</h4>
+            <hr />
+            <div class="form-group">
+                <label>عنوان بخش</label>
+                <input asp-for="EpisodeTitle" class="form-control" />
+                <span asp-validation-for="EpisodeTitle" class="text-danger"></span>
+
+            </div>
+
+            <div class="form-group">
+                <label>زمان</label>
+                <input asp-for="EpisodeTime" class="form-control" />
+                <span asp-validation-for="EpisodeTime" class="text-danger"></span>
+
+            </div>
+            <div class="form-group">
+                <label>فایل بخش</label>
+                <input type="file" name="fileEpisode">
+                <p class="text-danger">فایل اجباری است</p>
+                @if (ViewData["IsExistFile"] != null)
+                {
+                    <div class="alert alert-danger">
+                        نام فایل معتبر نیست ، لطفا تغییر دهید
+                    </div>
+                }
+                <span asp-validation-for="EpisodeFileName"></span>
+            </div>
+            <div class="form-group">
+                <label>دسترسی</label>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" asp-for="IsFree">
+                        رایگان است
+                    </label>
+                </div>
+            </div>
+            @*<div class="inbox-message">
+            <p>دسترسی</p>
+            <div class="inbox-message-actions ">
+
+
+                <input type="checkbox" asp-for="IsFree">
+
+                <label for="IsFree" class="label-check">
+                    <span class="checkbox primary"><span></span></span>
+                </label>
+
+            </div>
+
+        </div>*@
+
+
+        </div>
+        <div class="col-md-10">
+            <input type="submit" value="ذخیره اطلاعات" class="btn btn-success btn-block" />
+
+        </div>
+    </form>
+    <div class="col-md-2">
+        <a class="btn btn-warning btn-block" href="/admin/Products/IndexSeason/@seasonId">بازگشت به لیست سرفصل ها</a>
+
+    </div>
+</div>
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+
+}
+

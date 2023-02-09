@@ -1,0 +1,85 @@
+﻿@model ChargeWalletViewModel
+@{
+    ViewData["Title"] = "کیف پول شما";
+
+}
+
+
+<div class="headline buttons two primary">
+    <h4>کیف پول شما</h4>
+
+</div>
+<div class="form-box-item">
+    <h4>کیف پول شما</h4>
+    <hr class="line-separator">
+
+
+    <form asp-action="Index" method="post">
+
+
+
+        <div class="input-container half ">
+            <button class="btn btn-success">شارژ کیف پول </button>
+
+        </div>
+        <i class="zmdi zmdi-money"></i>
+        <div class="input-container half ">
+            <span>
+                <input type="number" asp-for="Amount" class="form-control" placeholder="مبلغ به تومان" aria-describedby="ps-address">
+
+            </span>
+
+
+        </div>
+
+        <div class="input-container">
+            <div class="text-danger" asp-validation-summary="All"></div>
+
+        </div>
+
+
+
+    </form>
+    <hr />
+    @{
+        List<WalletViewModel> wallets = ViewBag.WalletList as List<WalletViewModel>;
+    }
+    <table class="table table-bordered">
+        <tr>
+            <th>مبلغ</th>
+            <th>تاریخ</th>
+            <th>نوع تراکنش</th>
+            <th>شرح</th>
+        </tr>
+        @foreach (var item in wallets)
+        {
+            <tr>
+                <td class="text-success">@item.Amount.ToString("#,0 تومان")</td>
+                <td>@item.DateTime.ToShamsi()</td>
+                <td>
+                    @if (item.Type == 1)
+                    {
+                        <p class="text-success">واریز به حساب</p>
+                    }
+                    else
+                    {
+                        <p class="text-danger">برداشت</p>
+                    }
+                </td>
+                <td>
+                    @{
+                        string tagHref = $"<a href='/userpanel/myorders/showorder/{item.Description.Replace("فاکتور#", "")}' >#</a>";
+                    }
+                    @Html.Raw(item.Description.Replace("#", tagHref))
+                </td>
+
+            </tr>
+        }
+    </table>
+</div>
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+
+}
+

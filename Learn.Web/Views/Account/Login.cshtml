@@ -1,0 +1,61 @@
+﻿@model Learn.Core.DTOs.LoginViewModel
+@{
+    ViewData["Title"] = "ورود به سایت";
+}
+<div class="section-headline-wrap">
+    <div class="section-headline">
+        <h2>ورود به سایت</h2>
+        <p>صفحه اصلی<span class="separator">/</span><span class="current-section"> ورود</span></p>
+    </div>
+</div>
+<div class="form-popup section">
+    <!-- CLOSE BTN -->
+    <!-- /CLOSE BTN -->
+    <!-- FORM POPUP HEADLINE -->
+    <div class="form-popup-headline primary">
+        <h2>ورود</h2>
+        <p>ورود به سایت </p>
+    </div>
+    <!-- /FORM POPUP HEADLINE -->
+    <!-- FORM POPUP CONTENT -->
+    <div class="form-popup-content">
+        @if (ViewBag.IsSuccess != null)
+        {
+            <div class="alert alert-success">
+                <p class="help-block">ورود با موفقیت انجام شد</p>
+            </div>
+
+            <script>
+                // Your delay in milliseconds
+                var delay = 3000;
+                setTimeout(function () { window.location = "/userpanel"; }, delay);
+            </script>
+        }
+        @if (ViewBag.EditProfile == true)
+        {
+            <div class="alert alert-warning">
+                بدلیل ویرایش پروفایل و بارگزاری مجدد اطلاعات لطفا مجدد لاگین کنید
+            </div>
+        }
+        <form asp-action="Login" method="post">
+            <label for="email_address6" class="rl-label required">آدرس ایمیل</label>
+            <input asp-for="Email" placeholder="آدرس ایمیل خود را وارد کنید...">
+            <span asp-validation-for="Email" class="text-danger"></span>
+
+            <label for="password6" class="rl-label required">گذرواژه</label>
+            <input asp-for="Password" placeholder="گذرواژه خود را وارد کنید...">
+            <span asp-validation-for="Password" class="text-danger"></span>
+
+      
+     
+            <button class="button mid dark"> <span class="primary">ورود به سایت</span></button>
+        </form>
+    </div>
+    <!-- /FORM POPUP CONTENT -->
+</div>
+
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+
+}

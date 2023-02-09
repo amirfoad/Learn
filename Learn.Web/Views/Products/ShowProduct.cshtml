@@ -1,0 +1,489 @@
+﻿@model Product
+@using Learn.Core.Convertors
+@using Learn.Core.Services.Interfaces
+@inject IOrderService _orderService
+@inject IProductService _productService
+
+@{
+    ViewData["Title"] = @Model.ProductTitle;
+    bool IsUserInProduct = false;
+    if (User.Identity.IsAuthenticated)
+    {
+        IsUserInProduct = _orderService.IsUserInProduct(User.Identity.Name, Model.ProductId);
+    }
+    Learn.DataLayer.Entities.User.User teacher = ViewData["Teacher"] as Learn.DataLayer.Entities.User.User;
+}
+@section MetaTag{
+
+    <meta name=googlebot content=index,follow>
+    <meta name=robots content=noodp,noydir>
+    <meta name=description content="شرح صفحه">
+
+    <meta property=og:site_name value="خودآموزش  لرن">
+    <meta property=og:title content="@Model.ProductTitle">
+    <meta property=og:url content="https://Learn.com/ShowProduct/@Model.ProductId" />
+    <meta property=og:image content="/course/image/@Model.ImageName">
+    <meta property=og:image:url content="/course/image/@Model.ImageName" />
+    <meta property=og:image:width content="700">
+
+    <meta property=og:image:type content="image/jpg">
+    <meta property=og:description content="@Model.ProductSeoDescript">
+    <meta property=og:price:currency content="IRR">
+    <meta property=og:locale content="ir_FA">
+
+}
+
+<!-- SECTION HEADLINE -->
+<div class="section-headline-wrap row">
+<div class="col-md-8">
+     <h1 class="product-h1">@Model.ProductTitle </h1>  
+</div>
+        <div class="">
+                <div class="section-headline">
+       
+        <p>صفحه اصلی<span class="separator">/</span>@Model.ProductGroup.GroupTitle.ToString()<span class="separator">/</span><span class="current-section">@Model.ProductTitle </span></p>
+    </div>
+        </div>
+
+</div>
+ 
+<!-- /S	<!-- SECTION -->
+<div class="section-wrap">
+    <div class="section">
+       
+   
+        
+        <!-- SIDEBAR -->
+        <div class="sidebar right">
+            <!-- SIDEBAR ITEM -->
+            <div class="sidebar-item" style="position: relative;">
+
+                @if (Model.ProductPrice == 0)
+                {
+
+                    <a href="#" class="button mid dark spaced"> ثبت نام و دانلود |   <span class="primary">رایگان</span></a>
+                }
+                else if (User.Identity.IsAuthenticated && _orderService.IsUserInProduct(User.Identity.Name, Model.ProductId))
+                {
+                    <span class="primary">شما دانشجوی این دوره هستید</span>
+
+
+                }
+                else
+                {
+                    <a href="/Products/BuyProducts/@Model.ProductId" class="button mid dark spaced"> ثبت نام و دانلود |   <span class="primary">@Model.ProductPrice.ToString("#,0")</span><span>تومان</span></a>
+
+
+
+
+                }
+                <hr class="line-separator">
+
+                <form id="aux_form" name="aux_form"></form>
+                <hr class="line-separator">
+                <div class="headc">اطلاعات دوره</div>
+
+
+
+
+             
+                <hr class="line-separator">
+                <!-- INFORMATION LAYOUT -->
+               <div class="information-layout">
+                    <div class="information-layout-item row">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <i class="fa fa-time"></i>
+                            </div>
+                                 <div class="col-md-4"></div>
+                                      <div class="col-md-4"></div>
+                        </div>
+                        <div class="col-md-6">
+                             <p class="text-header">   &nbsp;&nbsp;&nbsp;سطح دوره</p>
+                        </div>
+                       
+                        <div class="col-md-4">
+                            <p>@Model.ProductLevel.LevelTitle
+                        </div>
+
+
+                        <div class="small liquid col-md-2">
+
+                            @if (Model.ProductLevel.LevelTitle.Contains("مقدماتی"))
+                            {
+                                <img src="/images/badges/community/hunter_s.png" alt="مقدماتی">
+                            }
+                            else if (Model.ProductLevel.LevelTitle.Contains("متوسط"))
+                            {
+                                <img src="/images/badges/community/silver_s.png" alt="متوسط">
+                            }
+                            else if (Model.ProductLevel.LevelTitle.Contains("پیشرفته"))
+                            {
+                                <img src="/images/badges/community/gold_s.png" alt="پیشرفته">
+                            }
+
+                        </div>
+                        
+                    </div>
+                    <div class="information-layout-item">
+                        <p class="text-header">وضعیت دوره</p>
+                        <p>@Model.ProductStatus.StatusTitle</p>
+
+                    </div>
+                    <!-- INFORMATION LAYOUT ITEM -->
+                    <div class="information-layout-item">
+                        <p class="text-header">تاریخ آپلود</p>
+                        <p>@Model.CreateDate.ToShamsi()</p>
+                    </div>
+                    <div class="information-layout-item">
+                        <p class="text-header">آخرین بروزرسانی دوره</p>
+                        <p>@Model.UpdateDate?.ToShamsi()</p>
+                    </div>
+
+                    <!-- /INFORMATION LAYOUT ITEM -->
+                    <!-- INFORMATION LAYOUT ITEM -->
+                    @if (Model.Tags != null)
+                    {
+                        <div class="information-layout-item">
+
+
+
+                            <p class="tags primary">
+                                @foreach (string tag in Model.Tags.Split('-', StringSplitOptions.RemoveEmptyEntries))
+                                {
+                                    <a href="/Products?filter=@tag">@tag</a> <i>,</i>
+
+                                }
+
+                            </p>
+
+                        </div>
+                    }
+                    <!-- /INFORMATION LAYOUT ITEM -->
+                </div>
+                <!-- INFORMATION LAYOUT -->
+                <!-- /CHECKBOX -->
+
+                <div id="Vote">
+
+                </div>
+
+                <div class="clearfix"></div>
+            </div>
+            <!-- /SIDEBAR ITEM -->
+            <!-- SIDEBAR ITEM -->
+            <!-- /SIDEBAR ITEM -->
+            <!-- SIDEBAR ITEM -->
+            @*   <div class="sidebar-item product-info">
+
+                </div>*@
+            <div class="sidebar-item author-bio">
+                <h4>استاد دوره</h4>
+                <hr class="line-separator">
+                <!-- USER AVATAR -->
+                <a href="#" class="user-avatar-wrap medium">
+                    <figure class="user-avatar medium">
+                        <img src="/UserAvatar/@teacher.UserAvatar" alt="@teacher.UserName">
+                    </figure>
+                </a>
+                <!-- /USER AVATAR -->
+                <p class="text-header">@teacher.UserName</p>
+                <p class="text-oneline">@teacher.Description</p>
+
+
+            </div>
+               <div class="sidebar-item author-reputation full">
+                    <h4>اعتبار محصول</h4>
+                    <hr class="line-separator">
+                    <!-- PIE CHART -->
+                    <div class="pie-chart pie-chart1 xmpiechart" style="width: 176px; height: 176px; position: relative;">
+                        <p class="text-header percent">100<span>%</span></p>
+                        <p class="text-header percent-info">توصیه شده</p>
+                        <!-- RATING -->
+                        <ul class="rating">
+                            <li class="rating-item">
+                                <!-- SVG STAR -->
+                                <svg class="svg-star">
+                                    <use xlink:href="#svg-star"></use>
+                                </svg>
+                                <!-- /SVG STAR -->
+                            </li>
+                            <li class="rating-item">
+                                <!-- SVG STAR -->
+                                <svg class="svg-star">
+                                    <use xlink:href="#svg-star"></use>
+                                </svg>
+                                <!-- /SVG STAR -->
+                            </li>
+                            <li class="rating-item">
+                                <!-- SVG STAR -->
+                                <svg class="svg-star">
+                                    <use xlink:href="#svg-star"></use>
+                                </svg>
+                                <!-- /SVG STAR -->
+                            </li>
+                            <li class="rating-item">
+                                <!-- SVG STAR -->
+                                <svg class="svg-star">
+                                    <use xlink:href="#svg-star"></use>
+                                </svg>
+                                <!-- /SVG STAR -->
+                            </li>
+                            <li class="rating-item empty">
+                                <!-- SVG STAR -->
+                                <svg class="svg-star">
+                                    <use xlink:href="#svg-star"></use>
+                                </svg>
+                                <!-- /SVG STAR -->
+                            </li>
+                        </ul>
+                        <!-- /RATING -->
+                        <canvas width="176" height="176" style="position: absolute; z-index: 0; top: 0px; left: 0px;"></canvas><canvas class="chartLine" width="176" height="176" style="position: absolute; z-index: 1; top: 0px; left: 0px;"></canvas>
+                    </div>
+                    <!-- /PIE CHART -->
+                </div>
+            <!-- /SIDEBAR ITEM -->
+            <!-- SIDEBAR ITEM -->
+          @*  <div class="sidebar-item author-items">
+                <h4>آیتم های بیشتر </h4>
+                <!-- PRODUCT LIST -->
+                <div class="product-list grid column4-wrap">
+                    @foreach (var item in _productService.GetPopularProducts(3))
+                    {
+                        <partial name="_BoxProduct" model="item" />
+                    }
+                </div>
+
+                <!-- /PRODUCT LIST -->
+                <div class="clearfix"></div>
+            </div>*@
+            <!-- /SIDEBAR ITEM -->
+        </div>
+        <!-- /SIDEBAR -->
+        <!-- CONTENT -->
+        <div class="content left">
+            <!-- POST -->
+            <article class="post">
+                <!-- POST IMAGE -->
+                <div class="post-image">
+                    @if (string.IsNullOrEmpty(Model.DemoFileName))
+                    {
+                        <figure class="product-preview-image large liquid">
+                            <img src="~/Product/Images/@Model.ImageName" alt="@Model.ProductTitle">
+                        </figure>
+                    }
+                    else
+                    {
+
+
+                        <video style="width:100%" autoplay controls poster="/Product/Images/@Model.ImageName">
+
+                            <source src="/Product/Demoes/@Model.DemoFileName" />
+
+                        </video>
+
+                    }
+
+
+
+                </div>
+                <!-- /POST IMAGE -->
+
+
+                <hr class="line-separator">
+
+                <!-- POST CONTENT -->
+                <div class="post-content">
+                    @Html.Raw(Model.ProductDescription)
+
+                    <div class="clearfix"></div>
+                </div>
+                <!-- /POST CONTENT -->
+
+                <hr class="line-separator">
+
+                <!-- SHARE -->
+                <div class="share-links-wrap">
+                    <p class="text-header small">به اشتراک بگذارید</p>
+                    <!-- SHARE LINKS -->
+
+
+                    <ul class="share-links hoverable">
+                        <li><a href="https://www.facebook.com/sharer/sharer.php?u=https://Learn.com/ShowProduct/@Model.ProductId" target="_blank" class="fb"></a></li>
+                        <li><a href="https://twitter.com/intent/tweet?url=https://Learn.com/ShowProduct/@Model.ProductId" target="_blank" class="twt"></a></li>
+
+                        <li><a href="https://plus.google.com/share?url=https://Learn.com/ShowProduct/@Model.ProductId" target="_blank" class="gplus"></a></li>
+                    </ul>
+                    <!-- /SHARE LINKS -->
+                </div>
+                <!-- /SHARE -->
+            </article>
+            <!-- /POST -->
+            <!-- POST TAB -->
+            <div class="post-tab">
+                <!-- TAB HEADER -->
+                <div class="tab-header primary">
+                    <!-- TAB ITEM -->
+                    <div class="tab-item selected">
+                        <p class="text-header">سرفصل ها (@Model.Seasons.Count)</p>
+                    </div>
+                    <div class="tab-item ">
+                        <p class="text-header">نظرات (@Model.ProductComments.Count)</p>
+                    </div>
+
+                    <!-- /TAB ITEM -->
+                </div>
+                <!-- /TAB HEADER -->
+                <!-- TAB CONTENT -->
+                <div class="tab-content void open">
+                    <div class="container comment-list">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                                    @foreach (var season in Model.Seasons)
+                                    {
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading" role="tab" id="headingOne">
+                                                <h4 class="panel-title">
+                                                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#episod@(season.SeasonId)" aria-expanded="true" aria-controls="collapseOne" dideo-checked="true">
+                                                        @season.Title
+                                                    </a>
+                                                </h4>
+                                            </div>
+                                            <div id="episod@(season.SeasonId)" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                                                <div class="panel-body">
+                                                    <ol>
+                                                        @foreach (var episode in season.ProductEpisodes)
+                                                        {
+                                                            <li class="row">
+                                                                <p class="col-md-4">@episode.EpisodeTitle</p>
+                                                                @if (episode.IsFree || IsUserInProduct)
+                                                                {
+                                                                    <a href="/DownloadFile/@episode.EpisodeId" class="col-md-4 text-success">
+                                                                        <i class="text-success glyphicon glyphicon-download-alt"></i>
+                                                                    </a>
+                                                                }
+
+                                                            </li>
+                                                        }
+
+
+                                                    </ol>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                              
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content void ">
+                    <!-- COMMENTS -->
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <div class="comment-list">
+
+                            <h3>پیام بگذارید</h3>
+
+                            <!-- COMMENT REPLY -->
+                            <div class="comment-wrap comment-reply">
+                                <!-- USER AVATAR -->
+                                <a href="/userpanel">
+                                    <figure class="user-avatar medium">
+                                        <img src="/UserAvatar/@ViewData["UserImage"].ToString()" alt="@User.Identity.Name">
+                                    </figure>
+                                </a>
+                                <!-- /USER AVATAR -->
+                                <!-- COMMENT REPLY FORM -->
+                                <form class="comment-reply-form" asp-action="CreateComment" asp-controller="Products"
+                                      data-ajax="true"
+                                      data-ajax-method="post"
+                                      data-ajax-mode="replace"
+                                      data-ajax-update="#listComment"
+                                      data-ajax-success="Success">
+                                    <input type="hidden" name="comment.ProductId" value="@Model.ProductId" />
+                                    <textarea id="comment_Comment" name="comment.Comment" placeholder="متن خود رااینجا بنویسید..."></textarea>
+                                    <button class="button primary">ارسال نظر</button>
+                                </form>
+                                <!-- /COMMENT REPLY FORM -->
+                            </div>
+
+
+                            <!-- /COMMENTS -->
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="comment-list ">
+                            <p class="text-danger">
+                                جهت درج نظر باید وارد سایت شوید.
+
+                            </p>
+                        </div>
+                    }
+                    <div class="comment-list" id="listComment">
+
+
+                    </div>
+                    <!-- /TAB CONTENT -->
+                    <!-- /TAB CONTENT -->
+                    <!-- /POST TAB -->
+                    <!-- CONTENT -->
+                    <hr />
+                    @*برای سرفصل ها*@
+
+
+                </div>
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+
+    <script src="~/js/jquery.unobtrusive-ajax.js"></script>
+    <script src="/js/vendor/jquery.xmtab.min.js"></script>
+    <script src="/js/post-tab.js"></script>
+    <script src="/js/vendor/jquery.xmaccordion.min.js"></script>
+
+    <script src="/js/vendor/jquery.xmpiechart.min.js"></script>
+    <script src="/js/item-v1.js"></script>
+    <script src="/js/user-board.js"></script>
+    <script>
+    function Success() {
+
+        $("#comment_Comment").val("");
+
+    }
+        $(function () {
+
+            $("#listComment").load("/Products/ShowComment/" +@Model.ProductId);
+
+        });
+        function pageComment(pageid) {
+            $("#listComment").load("/Products/ShowComment/" +@Model.ProductId+"?pageid=" + pageid);
+
+        }
+        $(function () {
+
+            $("#Vote").load("/Products/ProductVote/@Model.ProductId");
+
+        });
+        function vote(vote) {
+            $("#Vote").fadeOut('slow');
+            $("#Vote").load("/Products/AddVote/@(Model.ProductId)?vote=" + vote);
+
+            $("#Vote").fadeIn('slow');
+
+        }
+    </script>
+
+}

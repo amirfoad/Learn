@@ -1,0 +1,134 @@
+﻿@model Learn.DataLayer.Entities.User.User
+@inject IUserService _userService
+
+    <!-- USER BOARD -->
+    <div class="user-board">
+        <!-- USER QUICKVIEW -->
+        <div class="user-quickview">
+            <!-- USER AVATAR -->
+            <a href="/">
+                <div class="outer-ring">
+                    <div class="inner-ring"></div>
+                    <figure class="user-avatar">
+                        <img src="/UserAvatar/@Model.UserAvatar" alt="@Model.UserName">
+                    </figure>
+                </div>
+            </a>
+            <!-- /USER AVATAR -->
+            <!-- USER INFORMATION -->
+            <p class="user-name">@Model.UserName</p>
+            <!-- SVG ARROW -->
+            <svg class="svg-arrow">
+                <use xlink:href="#svg-arrow"></use>
+            </svg>
+            <!-- /SVG ARROW -->
+            <p class="user-money">@_userService.BalanceUserWallet(Model.UserName).ToString("#,0 تومان")</p>
+            <!-- /USER INFORMATION -->
+            <!-- DROPDOWN -->
+            <ul class="dropdown small hover-effect closed">
+                <li class="dropdown-item">
+                    <div class="dropdown-triangle"></div>
+                    <a href="/Userpanel">صفحه پروفایل</a>
+                </li>
+                <li class="dropdown-item">
+                    <a href="/userpanel/editprofile">تنظیمات حساب</a>
+                </li>
+                <li class="dropdown-item">
+                    <a href="/userpanel/myorders">خریدهای شما</a>
+                </li>
+
+                <li class="dropdown-item">
+                    <a href="/userpanel/Wallet">کیف پول شما</a>
+                </li>
+            </ul>
+            <!-- /DROPDOWN -->
+        </div>
+
+        <!-- /ACCOUNT INFORMATION -->
+        <!-- ACCOUNT ACTIONS -->
+        <div class="account-actions">
+            @*<a href="#" class="button primary">تبدیل شدن به یک فروشنده</a>*@
+            <a href="/logout" class="button secondary">خروج از سیستم</a>
+        </div>
+        <!-- /ACCOUNT ACTIONS -->
+    </div>
+<!--<div class="account-cart-quickview">
+						<span class="icon-present">-->
+							<!-- SVG ARROW -->
+							<!--<svg class="svg-arrow">
+								<use xlink:href="#svg-arrow"></use>
+							</svg>-->
+							<!-- /SVG ARROW -->
+						<!--</span>-->
+
+						<!-- PIN -->
+						<!--<span class="pin soft-edged secondary">7</span>-->
+						<!-- /PIN -->
+
+						<!-- DROPDOWN CART -->
+						<!--<ul class="dropdown cart closed">-->
+							<!-- DROPDOWN ITEM -->
+							<!--<li class="dropdown-item">
+								<a href="item-v1.html" class="link-to"></a>-->
+								<!-- SVG PLUS -->
+								<!--<svg class="svg-plus">
+									<use xlink:href="#svg-plus"></use>
+								</svg>-->
+								<!-- /SVG PLUS -->
+								<!--<div class="dropdown-triangle"></div>
+								<figure class="product-preview-image tiny">
+									<img src="images/items/pixel_s.jpg" alt="">
+								</figure>
+								<p class="text-header tiny">فروشگاه بازی پیکسل الماس</p>
+								<p class="category tiny primary">سایت کودک</p>
+								<p class="price tiny"><span>$</span>86</p>
+							</li>-->
+							<!-- /DROPDOWN ITEM -->
+
+							<!-- DROPDOWN ITEM -->
+							<!--<li class="dropdown-item">
+								<a href="item-v1.html" class="link-to"></a>-->
+								<!-- SVG PLUS -->
+								<!--<svg class="svg-plus">
+									<use xlink:href="#svg-plus"></use>
+								</svg>-->
+								<!-- /SVG PLUS -->
+								<!--<figure class="product-preview-image tiny">
+									<img src="images/items/monsters_s.jpg" alt="">
+								</figure>
+								<p class="text-header tiny">هیولاهای کوچک - 40 بسته با نشان دکمه</p>
+								<p class="category tiny primary">طراحی</p>
+								<p class="price tiny"><span>$</span>10</p>
+							</li>-->
+							<!-- /DROPDOWN ITEM -->
+
+							<!-- DROPDOWN ITEM -->
+							<!--<li class="dropdown-item">
+								<a href="item-v1.html" class="link-to"></a>-->
+								<!-- SVG PLUS -->
+								<!--<svg class="svg-plus">
+									<use xlink:href="#svg-plus"></use>
+								</svg>-->
+								<!-- /SVG PLUS -->
+								<!--<figure class="product-preview-image tiny">
+									<img src="images/items/flat_s.jpg" alt="">
+								</figure>
+								<p class="text-header tiny">مسطح - تصویر قهرمان آهنگ ساز</p>
+								<p class="category tiny primary">سایت کودک</p>
+								<p class="price tiny"><span>$</span>12</p>
+							</li>-->
+							<!-- /DROPDOWN ITEM -->
+
+							<!-- DROPDOWN ITEM -->
+							<!--<li class="dropdown-item">
+								<p class="text-header tiny">جمع</p>
+								<p class="price"><span>$</span>108.00</p>
+								<a href="cart.html" class="button primary half">سبد خرید</a>
+								<a href="checkout.html" class="button secondary half">پرداخت</a>
+							</li>-->
+							<!-- /DROPDOWN ITEM -->
+						<!--</ul>-->
+						<!-- /DROPDOWN CART -->
+					<!--</div>-->
+    <!-- /USER BOARD -->
+

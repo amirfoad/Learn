@@ -1,0 +1,71 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="/AdminContent/dashboard-css/vendor/simple-line-icons.css">
+    <link rel="stylesheet" href="/AdminContent/dashboard-css/style.css">
+    <link rel="stylesheet" href="~/css/material-design-iconic-font.min.css" />
+    <link href="~/css/bootstrap-rtl.css" rel="stylesheet" />
+
+    <title>لرن | @ViewData["Title"]</title>
+</head>
+<body>
+
+
+    <partial name="_Menu" />
+
+    <!-- DASHBOARD BODY -->
+    <div class="dashboard-body">
+        <!-- DASHBOARD HEADER -->
+        <div class="dashboard-header retracted">
+            <!-- DB CLOSE BUTTON -->
+            <a href="index.html" class="db-close-button">
+                <img src="/AdminContent/dashboard-images/dashboard/back-icon.png" alt="back-icon">
+            </a>
+            <!-- DB CLOSE BUTTON -->
+            <!-- DB OPTIONS BUTTON -->
+            <div class="db-options-button">
+                <img src="/AdminContent/dashboard-images/dashboard/db-list-right.png" alt="db-list-right">
+                <img src="/AdminContent/dashboard-images/dashboard/close-icon.png" alt="close-icon">
+            </div>
+            <!-- DB OPTIONS BUTTON -->
+            <!-- DASHBOARD HEADER ITEM -->
+            <div class="dashboard-header-item title">
+                <!-- DB SIDE MENU HANDLER -->
+                <div class="db-side-menu-handler">
+                    <img src="/AdminContent/dashboard-images/dashboard/db-list-left.png" alt="db-list-left">
+                </div>
+                <!-- /DB SIDE MENU HANDLER -->
+                <h6>صفحه داشبورد</h6>
+            </div>
+            <!-- /DASHBOARD HEADER ITEM -->
+            <!-- /DASHBOARD HEADER ITEM -->
+            <!-- /DASHBOARD HEADER ITEM -->
+            <!-- DASHBOARD HEADER ITEM -->
+            <div class="dashboard-header-item back-button">
+                <a href="/" class="button mid dark-light">بازگشت به خانه</a>
+            </div>
+            <!-- /DASHBOARD HEADER ITEM -->
+        </div>
+        <!-- DASHBOARD HEADER -->
+        <!-- DASHBOARD CONTENT -->
+        <div class="dashboard-content">
+            <!-- HEADLINE -->
+            <!-- /HEADLINE -->
+            <!-- INBOX MESSAGES -->
+            @RenderBody()
+            <!-- /INBOX MESSAGES -->
+        </div>
+        <!-- DASHBOARD CONTENT -->
+    </div>
+    <!-- /DASHBOARD BODY -->
+
+    <div class="shadow-film closed"></div>
+    <partial name="_Scripts" />
+    <!-- Modal -->
+
+    @RenderSection("Scripts", false)
+</body>
+</html>

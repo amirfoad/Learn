@@ -1,0 +1,127 @@
+﻿@model EditUserViewModel
+@{
+    List<Role> roles = ViewData["Roles"] as List<Role>;
+
+    ViewData["Title"] = "ویرایش کاربر";
+}
+
+<div class="headline buttons two primary">
+    <h4>ویرایش کاربر </h4>
+
+</div>
+<div class="row">
+    <form method="post" enctype="multipart/form-data">
+        <input type="hidden" asp-for="UserId" />
+        <input type="hidden" asp-for="AvatarName" />
+        <div class="col-md-8">
+            <div class="panel panel-primary">
+
+
+                <div class="panel-heading">
+                    اطلاعات کاربر
+                </div>
+
+
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label>نام کاربری :</label>
+                        <label class="text-success">@Model.UserName</label>
+
+
+                    </div>
+                    <div class="form-group">
+                        <label>ایمیل</label>
+                        <input asp-for="Email" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+
+                    </div>
+                    <div class="form-group">
+                        <label>توضیح</label>
+                        <input asp-for="Description" class="form-control" />
+                        <span asp-validation-for="Description" class="text-danger"></span>
+
+                    </div>
+                    <div class="form-group">
+                        <label>کلمه عبور</label>
+                        <input asp-for="Password" class="form-control" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                        <p class="help-block">درصورت وارد کردن کلمه عبور, کلمه عبور کاربر تغییر خواهد کرد.</p>
+
+                    </div>
+                    <div class="form-group">
+                        <label>تکرار کلمه عبور</label>
+                        <input asp-for="RePassword" class="form-control" />
+                        <span asp-validation-for="RePassword" class="text-danger"></span>
+
+                    </div>
+                    <hr />
+                    <div class="form-group">
+                        <label>انتخاب نقش کاربر</label>
+                        @foreach (var item in roles)
+                        {
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="SelectedRole" value="@item.RoleId" @((Model.UserRoles.Any(r => r == item.RoleId) ? "Checked" : "")) />@item.RoleTitle
+                                </label>
+                            </div>
+                        }
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    تصویر پروفایل
+                </div>
+
+
+                <div class="panel-body">
+                    <img id="imgAvatar" class="thumbnail" src="~/UserAvatar/@Model.AvatarName" />
+                    <div class="form-group">
+                        <label>انتخاب تصویر</label>
+                        <div>
+                            <label for="imgInp" class="btn btn-default">آپلود تصویر</label>
+                            <input style="visibility:hidden;" id="imgInp" asp-for="UserAvatar" />
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+        <div class="col-md-10">
+            <input type="submit" class="btn btn-block btn-success" value="ویرایش کاربر" />
+
+        </div>
+
+    </form>
+    <div class="col-md-2">
+        <a class="btn btn-block btn-warning" href="/Admin/User">بازگشت به لیست کاربران</a>
+    </div>
+</div>
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#imgAvatar').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]); // convert to base64 string
+            }
+        }
+
+        $("#imgInp").change(function () {
+            readURL(this);
+        });
+    </script>
+
+}

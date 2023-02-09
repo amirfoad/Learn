@@ -1,0 +1,51 @@
+﻿@model Learn.Core.DTOs.RegisterViewModel
+@{
+    ViewData["Title"] = "ثبت نام";
+}
+
+
+<div class="section-headline-wrap">
+    <div class="section-headline">
+        <h2>ثبت نام در سایت</h2>
+        <p>صفحه اصلی<span class="separator">/</span><span class="current-section"> ثبت نام</span></p>
+    </div>
+</div>
+<div class="form-popup section">
+    <!-- CLOSE BTN -->
+    <!-- /CLOSE BTN -->
+    <!-- FORM POPUP HEADLINE -->
+    <div class="form-popup-headline primary">
+        <h2>ثبت نام</h2>
+        <p>شروع ثبت نام </p>
+    </div>
+    <!-- /FORM POPUP HEADLINE -->
+    <!-- FORM POPUP CONTENT -->
+    <div class="form-popup-content">
+        <form asp-action="Register" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <label for="email_address6" class="rl-label required">آدرس ایمیل</label>
+            <input asp-for="Email" placeholder="آدرس ایمیل خود را وارد کنید...">
+            <span asp-validation-for="Email" class="text-danger"></span>
+
+            <label for="username6" class="rl-label">نام کاربری</label>
+            <input asp-for="UserName" placeholder="نام کاربری خود را وارد کنید...">
+            <span asp-validation-for="UserName" class="text-danger"></span>
+
+            <label for="password6" class="rl-label required">گذرواژه</label>
+            <input asp-for="Password" placeholder="گذرواژه خود را وارد کنید...">
+            <span asp-validation-for="Password" class="text-danger"></span>
+
+            <label for="repeat_password6" class="rl-label required">تکرار گذرواژه</label>
+            <input asp-for="RePassword" placeholder="تکرار گذرواژه...">
+            <span asp-validation-for="RePassword" class="text-danger"></span>
+
+            <button class="button mid dark">ثبت نام <span class="primary">هم اکنون!</span></button>
+        </form>
+    </div>
+    <!-- /FORM POPUP CONTENT -->
+</div>
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+
+}

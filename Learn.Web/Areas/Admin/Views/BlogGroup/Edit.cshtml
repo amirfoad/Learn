@@ -1,0 +1,44 @@
+﻿@model Blog_Groups
+@{
+    ViewData["Title"] = "ویرایش گروه";
+}
+<div class="headline buttons two primary">
+    <h4>ویرایش گروه </h4>
+
+</div>
+<div class="row">
+    <form method="post" enctype="multipart/form-data">
+        <input type="hidden" asp-for="ParentID" />
+        <input type="hidden" asp-for="GroupID" />
+        <div class="col-md-12">
+            <div class="panel panel-primary">
+
+
+                <div class="panel-heading">
+                    گروه
+                </div>
+
+
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label>عنوان گروه</label>
+                        <input asp-for="GroupTitle" class="form-control" />
+                        <span asp-validation-for="GroupTitle" class="text-danger"></span>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-md-10">
+            <input class="btn btn-block btn-success" type="submit" value="ویرایش گروه" />
+
+        </div>
+
+    </form>
+    <div class="col-md-2">
+        <a class="btn btn-block btn-warning" href="/Admin/BlogGroup">بازگشت به لیست گروه ها</a>
+    </div>
+</div>

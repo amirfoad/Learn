@@ -1,0 +1,58 @@
+﻿@model Learn.DataLayer.Entities.User.User
+@inject IUserService _UserService
+    <div id="account-options-menu" class="side-menu right closed">
+        <!-- SVG PLUS -->
+        <svg class="svg-plus">
+            <use xlink:href="#svg-plus"></use>
+        </svg>
+        <!-- /SVG PLUS -->
+        <!-- SIDE MENU HEADER -->
+        <div class="side-menu-header">
+            <!-- USER QUICKVIEW -->
+            <div class="user-quickview">
+                <!-- USER AVATAR -->
+                <a href="author-profile.html">
+                    <div class="outer-ring">
+                        <div class="inner-ring"></div>
+                        <figure class="user-avatar">
+                            <img src="/UserAvatar/@Model.UserAvatar" alt="@Model.UserName">
+                        </figure>
+                    </div>
+                </a>
+                <!-- /USER AVATAR -->
+                <!-- USER INFORMATION -->
+                <p class="user-name">@Model.UserName</p>
+                <p class="user-money">@_UserService.BalanceUserWallet(Model.UserName)</p>
+                <!-- /USER INFORMATION -->
+            </div>
+            <!-- /USER QUICKVIEW -->
+        </div>
+        <!-- /SIDE MENU HEADER -->
+
+        <!-- /DROPDOWN -->
+        <!-- SIDE MENU TITLE -->
+        <p class="side-menu-title">داشبورد</p>
+        <!-- /SIDE MENU TITLE -->
+        <!-- DROPDOWN -->
+        <ul class="dropdown dark hover-effect">
+
+            <li class="dropdown-item">
+                <div class="dropdown-triangle"></div>
+                <a href="/Userpanel">صفحه پروفایل</a>
+            </li>
+            <li class="dropdown-item">
+                <a href="/userpanel/editprofile">تنظیمات حساب</a>
+            </li>
+            <li class="dropdown-item">
+                <a href="/userpanel/myorders">خریدهای شما</a>
+            </li>
+
+            <li class="dropdown-item">
+                <a href="/userpanel/Wallet">کیف پول شما</a>
+            </li>
+        </ul>
+        <!-- /DROPDOWN -->
+
+        <a href="/Logout" class="button medium secondary">خروج از سیستم</a>
+       
+    </div>

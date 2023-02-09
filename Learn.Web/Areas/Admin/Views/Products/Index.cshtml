@@ -1,0 +1,86 @@
+﻿@model IEnumerable<ShowProductForAdminViewModel>
+@{
+    ViewData["Title"] = "محصولات";
+}
+
+
+
+<div class="headline buttons two primary">
+    <h4>لیست محصولات </h4>
+
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                لیست محصولات سایت
+            </div>
+            <!-- /.panel-heading -->
+            <div class="form-box-item">
+
+                <div class="panel-body">
+                    <div class="col-md-12" style="margin: 10px 0;">
+                        <div class="col-md-12" style="margin: 10px 0;">
+                            <a class="btn btn-outline btn-success" href="/Admin/products/create">افزودن محصول جدید</a>
+
+                        </div>
+                        <table class="table table-striped table-bordered table-hover dataTable no-footer" id="dataTables-example" aria-describedby="dataTables-example_info">
+                            <thead>
+                                <tr>
+                                    <th>تصویر دوره</th>
+                                    <th>عنوان دوره</th>
+                                    <th>تعداد جلسه</th>
+                                    <th>دستورات</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr id="productRow@(item.ProductId)">
+                                        <td><a href="/ShowProduct/@item.ProductId" target="_blank"><img src="~/Product/Thumb/@item.ImageName" class="thumbnail" /></a></td>
+                                        <td>@item.Title</td>
+                                        <td>@item.EpisodeCount</td>
+                                        <td>
+                                            <a href="/Admin/Products/Edit/@item.ProductId" class="btn btn-warning btn-sm">
+                                                ویرایش
+                                            </a>
+                                            <a href="/Admin/Products/IndexSeason/@item.ProductId" class="btn btn-success btn-sm">
+                                                لیست سرفصل ها
+                                            </a>
+                                            <a onclick="DeleteProduct(@item.ProductId)" class="btn btn-danger btn-sm">
+                                                حذف
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+
+                    </div>
+                    <!-- /.panel-body -->
+                </div>
+                <!-- /.panel -->
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+
+
+        function DeleteProduct(id) {
+            $.ajax({
+                type: "Get",
+                url: "/Admin/Products/Delete/" + id
+            }).done(function () {
+                $("#productRow" + id).fadeOut(1000);
+            });
+
+
+
+        };
+    </script>
+}
